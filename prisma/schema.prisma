@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model category {
+  id         Int       @default(autoincrement())
+  name       String    @unique(map: "name_UNIQUE") @db.VarChar(45)
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  User_id    Int
+  user       user      @relation(fields: [User_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_Category_User1")
+
+  @@id([id, User_id])
+  @@index([User_id], map: "fk_Category_User1_idx")
+}
+
+model file {
+  id          Int       @unique(map: "id_UNIQUE") @default(autoincrement())
+  title       String    @db.VarChar(50)
+  description String    @db.VarChar(200)
+  file_path   String    @db.VarChar(200)
+  created_at  DateTime? @default(now()) @db.DateTime(0)
+  accepted    Int?      @default(0) @db.TinyInt
+  User_id     Int
+  category    String    @db.VarChar(45)
+  views       Int?      @default(0)
+  user        user      @relation(fields: [User_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_File_User1")
+
+  @@id([id, User_id])
+  @@index([User_id], map: "fk_File_User1_idx")
+}
+
+model partnership {
+  id          Int       @unique(map: "id_UNIQUE") @default(autoincrement())
+  title       String    @db.VarChar(50)
+  description String?   @db.VarChar(150)
+  file_path   String?   @db.VarChar(200)
+  User_id     Int
+  created_at  DateTime? @default(now()) @db.DateTime(0)
+  user        user      @relation(fields: [User_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_Partnership_User1")
+
+  @@id([id, User_id])
+  @@index([User_id], map: "fk_Partnership_User1_idx")
+}
+
+model user {
+  id          Int           @id @unique(map: "id_UNIQUE") @default(autoincrement())
+  username    String        @db.VarChar(50)
+  contact     String        @db.VarChar(20)
+  email       String?       @unique(map: "email_UNIQUE") @db.VarChar(50)
+  created_at  DateTime?     @default(now()) @db.DateTime(0)
+  is_super    Int           @default(0) @db.TinyInt
+  is_active   Int?          @default(0) @db.TinyInt
+  is_admin    Int?          @default(0) @db.TinyInt
+  password    String        @db.VarChar(50)
+  is_blocked  Int?          @default(0) @db.TinyInt
+  category    category[]
+  file        file[]
+  partnership partnership[]
+}
