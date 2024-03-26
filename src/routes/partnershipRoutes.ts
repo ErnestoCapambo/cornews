@@ -1,4 +1,4 @@
-import upload from "../middlewares/fileUpload";
+import upload from "../middlewares/files/fileUpload";
 import { createPartnership } from "../project/partnership/createPartnership";
 import { deletePartnership } from "../project/partnership/deletePartnership";
 import { getPartnership } from "../project/partnership/getPartnership";

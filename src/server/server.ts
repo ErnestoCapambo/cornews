@@ -3,12 +3,17 @@ import userRoutes from "../routes/userRoutes"
 import categoryRoutes from "../routes/categoryRoutes"
 import fileRoutes from "../routes/fileRoutes"
 import partnershipRoutes from "../routes/partnershipRoutes"
+import loginRoute from "../routes/loginRoute"
+
 
 export const app = express()
 app.use(express.json())
 
 //User Routes
 app.use("/user", userRoutes)
+
+// Auth Routes
+app.use("/auth", loginRoute)
 
 // // Category Roots
 app.use("/category", categoryRoutes)

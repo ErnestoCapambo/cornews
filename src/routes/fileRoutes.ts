@@ -1,4 +1,4 @@
-import upload from "../middlewares/fileUpload";
+import upload from "../middlewares/files/fileUpload";
 import { createFile } from "../project/file/createFile";
 import { deleteFile } from "../project/file/deleteFile";
 import { getFiles } from "../project/file/getFile";

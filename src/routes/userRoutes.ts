@@ -7,13 +7,14 @@ import { addAdmin } from "../project/user/addAdmin";
 import { removeAdmin } from "../project/user/removeAdmin";
 import { blockUser } from "../project/user/blockUser";
 import { unlockUser } from "../project/user/unlockUser";
+import { authenticateToken } from "../project/auth/login";
 
 
 export const router = Router()
 
 router.post("/create_user", createUser)
 
-router.get("/get_user/:userId?", getUser)
+router.get("/get_user/:userId?", authenticateToken, getUser)
 
 router.put("/update_user/:userId", updateUser)
 
