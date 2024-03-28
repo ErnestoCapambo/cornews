@@ -3,7 +3,7 @@ import userRoutes from '../routes/userRoutes'
 import categoryRoutes from '../routes/categoryRoutes'
 import fileRoutes from '../routes/fileRoutes'
 import partnershipRoutes from '../routes/partnershipRoutes'
-import loginRoute from '../routes/loginRoute'
+import loginRoute from '../routes/authRoutes'
 
 export const app = express()
 app.use(express.json())

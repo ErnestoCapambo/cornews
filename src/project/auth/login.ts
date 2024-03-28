@@ -24,11 +24,16 @@ export async function login(req: Request, res: Response) {
                     email: user.email,
                     is_super: user.is_super,
                     admin: user.is_admin,
+                    active: true
                 },
                 secretKey,
                 { expiresIn: '12h' },
             )
-            return res.status(200).json({ token: token, user: user })
+            const activeUser = await prisma.user.update({
+                where: { id: Number(userId)},
+                data: { is_active: 1 }
+            })
+            return res.status(200).json({ token: token, user: activeUser })
         }
         if (user == null) {
             return res.status(401).json({ error: 'Credenciais invalidas!' })
