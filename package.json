@@ -2,7 +2,10 @@
     "name": "corenews",
     "version": "1.0.0",
     "description": "",
-    "main": "./src/server/server.ts",
+    "main": "./dist/server/server.js",
+    "engines": {
+        "node": "20"
+    },
     "scripts": {
         "build": "tsup src",
         "start": "nodemon"
