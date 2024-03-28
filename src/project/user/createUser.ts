@@ -7,7 +7,7 @@ import { secretKey } from '../auth/login'
 import Jwt from 'jsonwebtoken'
 dotenv.config()
 
-const connectionString = `${process.env.DATABASE_URL}`
+const connectionString = "postgres://cornewsdb_user:yaJhil4UQ78tyirVFecXk5rMMnaThl6f@dpg-co2ndkol6cac73br90s0-a.ohio-postgres.render.com/cornewsdb"
 const poll = new Pool({ connectionString })
 const adapter = new PrismaPg(poll)
 export const prisma = new PrismaClient({ adapter })
