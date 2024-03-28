@@ -1,8 +1,7 @@
-import { prisma } from "./createUser"
-import { Request, Response } from "express";
+import { prisma } from './createUser'
+import { Request, Response } from 'express'
 
-
-export async function getUser(req:Request, res:Response) {
+export async function getUser(req: Request, res: Response) {
     try {
         const { userId } = req.params
         if (!userId) {
@@ -11,16 +10,16 @@ export async function getUser(req:Request, res:Response) {
         }
         if (Number(userId)) {
             const user = await prisma.user.findUnique({
-                where: {id: Number(userId)}
+                where: { id: Number(userId) },
             })
             if (user === null) {
-                return res.status(404).json({notfound: "User not found!"})
+                return res.status(404).json({ notfound: 'User not found!' })
             }
             return res.status(200).json(user)
         } else {
-            return res.status(404).json({notfound: "User not found!"})
+            return res.status(404).json({ notfound: 'User not found!' })
         }
-    } catch (err:any) {
+    } catch (err: any) {
         return res.status(500).json(err)
     }
 }
