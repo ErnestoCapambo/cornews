@@ -1,9 +1,11 @@
 import express from 'express'
 import userRoutes from '../routes/userRoutes'
+import dotenv from "dotenv"
 import categoryRoutes from '../routes/categoryRoutes'
 import fileRoutes from '../routes/fileRoutes'
 import partnershipRoutes from '../routes/partnershipRoutes'
 import loginRoute from '../routes/authRoutes'
+dotenv.config()
 
 export const app = express()
 app.use(express.json())
