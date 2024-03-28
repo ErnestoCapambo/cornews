@@ -23,6 +23,7 @@ app.use('/files', fileRoutes)
 // Partnership Roots
 app.use('/partnership', partnershipRoutes)
 
-app.listen(3344, () => {
-    console.log('The server is running at port 3344!')
-})
+app.listen(process.env.PORT ? Number(process.env.PORT) : 3344,() => {
+    console.log('Http server running...')
+}
+)

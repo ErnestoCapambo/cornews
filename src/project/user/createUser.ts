@@ -1,16 +1,12 @@
 import { PrismaClient } from '@prisma/client'
-import { Pool } from 'pg'
-import { PrismaPg } from '@prisma/adapter-pg'
 import dotenv from 'dotenv'
 import { Request, Response, NextFunction } from 'express'
 import { secretKey } from '../auth/login'
 import Jwt from 'jsonwebtoken'
 dotenv.config()
 
-const connectionString = `${process.env.DATABASE_URL}`
-const poll = new Pool({ connectionString })
-const adapter = new PrismaPg(poll)
-export const prisma = new PrismaClient({ adapter })
+
+export const prisma = new PrismaClient()
 
 export async function createUser(req: Request, res: Response, next: NextFunction) {
     try {
