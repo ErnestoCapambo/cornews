@@ -17,6 +17,7 @@ model category {
 
   @@id([id, User_id])
   @@index([User_id], map: "fk_Category_User1_idx")
+  @@map("category")
 }
 
 model file {
@@ -33,6 +34,7 @@ model file {
 
   @@id([id, User_id])
   @@index([User_id], map: "fk_File_User1_idx")
+  @@map("file")
 }
 
 model partnership {
@@ -46,6 +48,7 @@ model partnership {
 
   @@id([id, User_id])
   @@index([User_id], map: "fk_Partnership_User1_idx")
+  @@map("partnership")
 }
 
 model user {
@@ -62,4 +65,5 @@ model user {
   category    category[]
   file        file[]
   partnership partnership[]
+  @@map("user")
 }
