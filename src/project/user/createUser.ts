@@ -15,7 +15,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
                 .status(500)
                 .json({ error: "Password can't be less than 8 charactheres." })
         }
-        const veryfyUserInDatabase = await prisma.user.count()
+        const veryfyUserInDatabase = await prisma.public.user.count()
         if (veryfyUserInDatabase > 0) {
             const User = req.body
             const Newuser = await prisma.user.create({
