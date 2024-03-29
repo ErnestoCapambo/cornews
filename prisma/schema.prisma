@@ -64,5 +64,5 @@ model user {
   category    category[]
   file        file[]
   partnership partnership[]
-  @@map("public.user")
+  @@map("user")
 }
