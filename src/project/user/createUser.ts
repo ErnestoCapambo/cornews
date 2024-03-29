@@ -1,11 +1,16 @@
 import { PrismaClient } from '@prisma/client'
+import { Pool } from 'pg'
+import { PrismaPg } from '@prisma/adapter-pg'
 import dotenv from 'dotenv'
 import { Request, Response, NextFunction } from 'express'
 import { secretKey } from '../auth/login'
 import Jwt from 'jsonwebtoken'
 dotenv.config()
 
-export const prisma = new PrismaClient()
+const connectionString = `${process.env.DATABASE_URL}`
+const poll = new Pool({ connectionString })
+const adapter = new PrismaPg(poll)
+export const prisma = new PrismaClient({ adapter })
 
 export async function createUser(req: Request, res: Response, next: NextFunction) {
     try {
@@ -15,13 +20,13 @@ export async function createUser(req: Request, res: Response, next: NextFunction
                 .status(500)
                 .json({ error: "Password can't be less than 8 charactheres." })
         }
-        const veryfyUserInDatabase = await prisma.public.user.count()
+        const veryfyUserInDatabase = await prisma.user.count()
         if (veryfyUserInDatabase > 0) {
             const User = req.body
             const Newuser = await prisma.user.create({
                 data: User,
             })
-            const user = await prisma.public.user.findUnique({ where: { email: email }})
+            const user = await prisma.user.findUnique({ where: { email: email }})
             if (user !== null) {
                 const userToken = Jwt.sign(
                     {
@@ -37,7 +42,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
                 next()
             }
         } else {
-            const NewUser = await prisma.public.user.create({
+            const NewUser = await prisma.user.create({
                 data: {
                     username: username,
                     password: password,
@@ -47,7 +52,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
                     is_admin: 1,
                 },
             })
-            const user = await prisma.public.user.findUnique({ where: { email: email }})
+            const user = await prisma.user.findUnique({ where: { email: email }})
             if (user !== null) {
                 const userToken = Jwt.sign(
                     {
