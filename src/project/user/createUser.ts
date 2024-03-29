@@ -21,7 +21,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
             const Newuser = await prisma.user.create({
                 data: User,
             })
-            const user = await prisma.user.findUnique({ where: { email: email }})
+            const user = await prisma.public.user.findUnique({ where: { email: email }})
             if (user !== null) {
                 const userToken = Jwt.sign(
                     {
@@ -37,7 +37,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
                 next()
             }
         } else {
-            const NewUser = await prisma.user.create({
+            const NewUser = await prisma.public.user.create({
                 data: {
                     username: username,
                     password: password,
@@ -47,7 +47,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
                     is_admin: 1,
                 },
             })
-            const user = await prisma.user.findUnique({ where: { email: email }})
+            const user = await prisma.public.user.findUnique({ where: { email: email }})
             if (user !== null) {
                 const userToken = Jwt.sign(
                     {
